@@ -84,8 +84,7 @@ $( ".task-activity" ).click(function() {
     });
     var proj_name= elems[0].textContent
     var prevDay= prevgetDateTime()
-    console.log(prevDay)
-    fetch('http://'+host+':'+port+'/task-activities?timeStart=2020-01-09T08%3A35%3A16Z&timeStop=2020-01-14T08%3A35%3A16Z' + '&project_id=' + project_id).then((response) => {
+    fetch('http://'+host+':'+port+'/task-activities?timeStart='+prevDay+'&timeStop='+current_time + '&project_id=' + project_id).then((response) => {
         response.json().then((data) => {
             if (data.error) {
 
@@ -159,7 +158,7 @@ function getDateTime() {
 
 function prevgetDateTime() {
     var d = new Date();
-    var now = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 17);
+    var now = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7);
     var year = now.getFullYear();
     var month = now.getMonth()+1;
     var day = now.getDate();
