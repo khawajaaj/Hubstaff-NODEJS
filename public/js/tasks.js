@@ -93,7 +93,7 @@ $( ".task-activity" ).click(function() {
                 var time_total =0;
                 if(data.activities.data5.length==0){
                     $("#NamesGridView").html(
-                        "<div><b>Task name:</b> "+task_name+"<br><b>Project Name: </b>" + proj_name+"<br>ID<br>Tracked<br>Starts at<br>" + " <br> No Activity Yet </div>");
+                        "<div><b>Task name:</b> "+task_name+"<br><b>Project Name: </b>" + proj_name + " <br> No Activity Yet </div>");
                         
                 }
 
@@ -104,21 +104,22 @@ $( ".task-activity" ).click(function() {
                             time_total = time_total+ parseInt(data.activities.data5[i].tracked)
                         $("#NamesGridView").html(
                             "<div><b>Task name:</b> "+task_name+"<br><b>Project Name: </b>" + proj_name+"<br><b>Activity ID: </b>" + data.activities.data5[i].id + 
-                                                "<br><b>Total Seconds Tracked: </b>" + data.activities.data5[i].tracked + "<br><b>Starts at: </b>" + data.activities.data5[i].starts_at +"<br><b>Task ID: </b>" + data.activities.data5[i].task_id+"</div>");
+                                                "<br><b>Total Seconds Tracked: </b>" + data.activities.data5[i].tracked + "<br><b>Tracking Starts at: <br> </b>" + data.activities.data5[i].starts_at +"<br><b>Task ID: </b>" + data.activities.data5[i].task_id+"</div>");
                         }
                         else{
                             time_total = time_total+ parseInt(data.activities.data5[i].tracked)
                             $("#NamesGridView").append(
                                 "<div><b>Project Name:</b> " + proj_name+ "<b><br>Activity ID: </b>" + data.activities.data5[i].id + 
-                                                    "<br><b>Total Seconds Tracked: </b>" + data.activities.data5[i].tracked + "<br><b>Starts at: </b>" + data.activities.data5[i].starts_at + "<br><b>Task ID: </b>" + data.activities.data5[i].task_id+ "</div>");
+                                                    "<br><b>Total Seconds Tracked: </b>" + data.activities.data5[i].tracked + "<br><b>Tracking Starts at: <br></b>" + data.activities.data5[i].starts_at + "<br><b>Task ID: </b>" + data.activities.data5[i].task_id+ "</div>");
                             }
                              
                             
                     }
                     
                 }
+                var time =new Date(time_total * 1000).toISOString().substr(11, 8);
                 $("#NamesGridView").append(
-                    "<div><b>Total Time Tracked: <b>"+time_total+ "</div>");
+                    "<div><b>Total Time Tracked: </b>"+time+ "</div>");
                
                 
             }
@@ -126,6 +127,8 @@ $( ".task-activity" ).click(function() {
     })
 
   });
+
+  
 
 
 
