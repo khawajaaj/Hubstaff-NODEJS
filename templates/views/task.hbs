@@ -1,0 +1,183 @@
+{{>header}}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Create Task</h4>
+                </div>
+                <form id="fmtask">
+                    <div class="row col-sm-12">
+                        <div class="input-group mb-3 col-sm-6">
+                            <select id="pr-name" class="form-control" required>
+                                <option value="">Select Project</option>
+                                {{#if data.data1.data}}
+                                {{#each data.data1.data}}
+                                <option value="{{this.id}}">{{this.name}}</option>
+
+                                {{/each}}
+                                {{/if}}
+
+                            </select>
+                        </div>
+                        <div class="input-group mb-3 col-sm-6">
+                            <select id="us-name" class="form-control" required>
+                                <option value="">Select User</option>
+                                {{#if data.data.data}}
+                                {{#each data.data.data}}
+                                <option value="{{this.id}}">{{this.id}}</option>
+                                {{/each}}
+                                {{/if}}
+
+                            </select>
+                        </div>
+                        <div class="input-group mb-3 col-sm-6">
+<label>Enter Task Name</label>
+                            <input class="form-control" id="tk-name">
+                        </div>
+                        <div class="input-group mb-3 col-sm-6">
+                            <label>Select Start Date</label>
+                            <input type="date" class="form-control" placeholder="Select start date" id="tk-strt">
+                        </div>
+                        {{!-- <div class="input-group mb-3 col-sm-6">
+                            <label>Select End Date</label>
+                            <input type="date" class="form-control" placeholder="Select end date" id="tk-end">
+                        </div> --}}
+                        <div class="mb-3 col-sm-12 text-center">
+                            <button class="btn btn-success" type="submit">Create Task</button>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="col-sm-12">
+                    <p id="tmsg-1" class="alert alert-danger" role="alert"></p>
+                    <p id="tmsg-2" class="alert alert-success" role="alert"></p>
+                </div>
+            </div>
+        </div> 
+        <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">All Active Tasks List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive all-tasks">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID      
+                                    </th>
+                                    <th>
+                                        Task Name
+                                    </th>
+                                    
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Project Name
+                                    </th>
+                                    <th>
+                                        Date Created
+                                    </th>
+                                    <th class="text-right">
+                                       Action
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    {{#if data.data3.data3}}
+                                     {{#each data.data3.data3}}
+                                    <tr>
+                                        <td>{{this.id}}</td>
+                                        <td><span class="task-activity" data-projectId="{{this.project_id}}" data-taskId="{{this.id}}" data-taskname="{{this.name}}" >{{this.name}}</span></td>
+                                        <td>{{this.status}}</td>
+                                         <td>{{this.project_id}}</td>
+                                         <td>{{this.create_date}}</td>
+                                         <td class="text-right"><button data-id="{{this.id}}" data-lock="{{this.lock_version}}" class="btn btn-outline-success task-action" type="submit">Mark as Complete</button></td>
+                                    </tr>
+                                     {{/each}}
+                                    {{/if}}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="task-detail">
+                            <h4 class="card-title">Task Detail</h4>
+                        <div id="NamesGridView" >
+                                    
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"> Completed Tasks List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID      
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Project ID
+                                    </th>
+                                    <th class="text-right">
+                                        Completed at
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    {{#if data.data4.data4}}
+                                     {{#each data.data4.data4}}
+                                    <tr>
+                                        <td>{{this.id}}</td>
+                                        <td>{{this.name}}</td>
+                                        <td>{{this.status}}</td>
+                                        <td>{{this.project_id}}</td>
+                                         <td class="text-right">{{this.completed_at}}</td>
+                                         
+                                    </tr>
+                                     {{/each}}
+                                    {{/if}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              {{!-- <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"> Task Info</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            
+                                <div id="NamesGridView">
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+    </div>
+</div>
+
+{{>footer}}
+<script src="/js/tasks.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+
+</html>

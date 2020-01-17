@@ -1,0 +1,12 @@
+{{>header}}
+    <p>
+        {{#if data}}
+        {{#each data}}
+        <li>{{this.name}}</li>
+    {{/each}}
+    {{/if}}
+    </p>
+    </div>
+    {{>footer}}
+</body>
+</html>
