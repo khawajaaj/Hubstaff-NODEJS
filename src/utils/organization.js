@@ -3,7 +3,8 @@ const app_token = require('./token')
 
 const organizations = (user, callback) => {
 
-    const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token
     const apiUrl = 'https://api.hubstaff.com/v2/organizations'
 
     request({

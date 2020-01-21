@@ -2,8 +2,8 @@ const request = require('request')
 const app_token = require('./token')
 
 const tasks = (user, callback) => {
-
-   const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token
     const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/members'
     return new Promise ((resolve,reject)=> {
     request({
@@ -40,7 +40,8 @@ const tasks = (user, callback) => {
 
 const projects =  (user, callback) => {
 
-   const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token
     const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/projects?status=active'
     return new Promise ((resolve,reject)=> {
     request({
@@ -77,7 +78,8 @@ const projects =  (user, callback) => {
 
 const create_tasks =  (project,user, callback) => {
     
-   const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token
     const apiUrl = 'https://api.hubstaff.com/v2/projects/'+project+'/update_members'
     const formData ={
         members:[
@@ -115,7 +117,8 @@ const create_tasks =  (project,user, callback) => {
 
 const assign_task = (user_id,project,taskname,start_date,callback) => {
     
-   const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token   
     const apiUrl = 'https://api.hubstaff.com/v2/projects/'+project+'/tasks'
     
     var formData ={
@@ -150,7 +153,8 @@ const assign_task = (user_id,project,taskname,start_date,callback) => {
 
 const getTasks = (user, callback) => {
 
-   const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token
     const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/tasks?status=active'
     return new Promise ((resolve,reject)=> {
     request({
@@ -191,8 +195,9 @@ const getTasks = (user, callback) => {
 //Show Completed Tasks
 const getCompletedTasks = (user, callback) => {
 
-   const token = app_token
-    const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/tasks?status=completed'
+    const token1 = app_token.load()
+    const token = token1.access_token
+   const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/tasks?status=completed'
     return new Promise ((resolve,reject)=> {
     request({
         url: apiUrl,
@@ -234,7 +239,8 @@ const getCompletedTasks = (user, callback) => {
 // Complete task
 const complete_tasks = (task_id,lock_version,status,completed_at, callback) => {
     
-   const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token   
     const apiUrl = 'https://api.hubstaff.com/v2/tasks/'+task_id
     
     var formData ={
@@ -267,7 +273,8 @@ const complete_tasks = (task_id,lock_version,status,completed_at, callback) => {
 
 
 const getActivites = (timeStart,timeStop,ProjectID, callback) => {
-    const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token    
      //const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/activities?time_slot[start]='+timeStart+'&time_slot[stop]='+timeStop+'&project_ids='+ProjectID;
      const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/activities?time_slot[start]='+timeStart+'&time_slot[stop]='+timeStop+'&project_ids='+ProjectID
      return new Promise ((resolve,reject)=> {

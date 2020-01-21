@@ -1,16 +1,20 @@
 const request = require('request')
 const app_token=require('./token')
 
-const projects =  (user, callback) => {
 
-    const token = app_token
+const projects =  (user, callback) => {
+    
+    const token1 = app_token.load()
+    const token = token1.access_token
     const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/projects?status=active'
 
     return new Promise ((resolve,reject)=> {
         request({
             url: apiUrl,
-            json: true
-        }, (error, response) => {
+            json: true,
+            'auth': {
+                'bearer': token
+              }}, (error, response) => {
             if (error) {
                 reject({message: 'Unable to connect to API service'});
             } else if(response.statusCode == 401){
@@ -40,7 +44,8 @@ const projects =  (user, callback) => {
 
 const create_projects = (addProject, callback) => {
     
-    const token = app_token
+    const token1 = app_token.load()
+    const token = token1.access_token
     const apiUrl = 'https://api.hubstaff.com/v2/organizations/223965/projects'
     
     var formData ={

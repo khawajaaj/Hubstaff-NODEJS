@@ -7,6 +7,7 @@ const projects = require('./utils/projects')
 const user = require('./utils/user')
 const organizations = require('./utils/organization')
 const tasks= require('./utils/tasks')
+var schedule = require('node-schedule');
 
 
 const app = express()
@@ -26,6 +27,20 @@ app.use(express.static(publicDirectoryPath))
 
 const users='user'
 
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule.hour = 12;
+rule.minute = 0;
+var j = schedule.scheduleJob(rule, function(){
+    token.refresh_token(users).then(data =>{
+
+                console.log("token refreshed")
+
+             }).catch(error =>{
+                 console.log("error")
+             })
+
+});
 //
 app.get('/', (req, res) => {
     projects.projects(users).then(result => {
