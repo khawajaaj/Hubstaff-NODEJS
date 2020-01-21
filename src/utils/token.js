@@ -1,5 +1,6 @@
 var fs = require('fs');
 const request = require('request')
+const path = require('path')
 
 const app_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImRlZmF1bHQifQ.eyJqdGkiOiJRMEdIazdkbSIsImlzcyI6Imh0dHBzOi8vYWNjb3VudC5odWJzdGFmZi5jb20iLCJleHAiOjE1Nzk2MjAwMzAsImlhdCI6MTU3OTM2MDgzMCwic2NvcGUiOiJodWJzdGFmZjp3cml0ZSBodWJzdGFmZjpyZWFkIiwiYXVkIjoic3dhZ2dlclVJIiwic3ViIjoiTTc5YTZwY0g1aC0xcTkxLXYxR1lTdkFDbGlBbGxvVjNvcEJva1Y2S2VHdUVTcFgwVE1kTVdXV0xjbmFxNlhxTzFVQ2FZZWxBT2paMVFyQ21GNll0NEE9PSJ9.W9GJMWOb8DhNWR5JM1L0pM-LqOI3GSo_4KF1szPXsdO1Sks57UJAyWS22jOidwSTIY-NJI5ZCA1VJAysrsel7OEPJDV-9gP9gfwrnHAc6oBqVHWPPrdCDw_110f2S5447mGdz0XYgOqHidI3TWm6ErSgoJ69BK_pApq8koPub2OA5NvXU9EjLQtpL9aPHy-sqN3oS7AZQIx7wFdgKbqU5GGACVLrganM2thAZGDfFp9fX4s5vXXT3u-JtHzt7xV-y1VsG9sKQmFjN7JSov8UizpBl6t_8BF4TZ408vyX-VH4WfM-5Lx9Seic1RksW-WEQr4J0SY0AoQP7_nPVDU8ww'
 
@@ -32,13 +33,9 @@ const refresh_token = (user_id,project,taskname,start_date,callback) => {
             token.access_token = response.body.access_token
             token.refresh_token = response.body.refresh_token
             const new_token = JSON.stringify(token)
-            try{
-            fs.writeFileSync('src/utils/token.json', new_token)
+            const tokenDirectoryPath = path.join(__dirname, '../src/utils')
+            fs.writeFileSync(tokenDirectoryPath, new_token)
             resolve("Successfully Posted")             
-            }
-            catch{
-                resolve("data not posted")
-            }
          }
  
  
@@ -48,8 +45,9 @@ const refresh_token = (user_id,project,taskname,start_date,callback) => {
 
 
 const load = ()=>{
-    
-    const dataBuffer = fs.readFileSync('src/utils/token.json')
+    const tokenDirectoryPath = path.join(__dirname, '../utils/token.json')
+
+    const dataBuffer = fs.readFileSync(tokenDirectoryPath)
     const dataJSON = dataBuffer.toString()
     var token = JSON.parse(dataJSON)
     return token
