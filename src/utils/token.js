@@ -33,7 +33,7 @@ const refresh_token = (user_id,project,taskname,start_date,callback) => {
             token.access_token = response.body.access_token
             token.refresh_token = response.body.refresh_token
             const new_token = JSON.stringify(token)
-            const tokenDirectoryPath = path.join(__dirname, '../src/utils')
+            const tokenDirectoryPath = path.join(__dirname, '../utils/token.json')
             fs.writeFileSync(tokenDirectoryPath, new_token)
             resolve("Successfully Posted")             
          }
